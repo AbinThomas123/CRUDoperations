@@ -5,5 +5,7 @@ import com.project.demo.DTO.UserDTO;
 public interface UserService {
 	
 	public UserDTO getUserDetails(Integer userId);
+	
+	public String addUser(UserDTO userDTO);
 
 }

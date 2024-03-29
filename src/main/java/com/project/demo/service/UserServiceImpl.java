@@ -9,6 +9,8 @@ import com.project.demo.DTO.UserDTO;
 import com.project.demo.entity.User;
 import com.project.demo.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,6 +33,22 @@ public class UserServiceImpl implements UserService {
 	userDTO.setUserId(userEntity.getUserId());
 		
 		return userDTO;
+	}
+	
+	@Transactional
+	@Override
+	public String addUser(UserDTO userDTO) {
+	
+		User user=new User();
+		user.setCity(userDTO.getCity());
+		user.setPassword(userDTO.getPassword());
+		user.setPhoneNo(userDTO.getPhoneNo());
+		user.setUserId(userDTO.getUserId());
+		user.setUserName(userDTO.getUserName());
+		
+		userRepository.save(user);
+		
+		return "Sucess";
 	}
 
 }
