@@ -9,5 +9,6 @@ public interface UserService {
 	public String addUser(UserDTO userDTO);
 	
 	public String updateUser(UserDTO userDTO);
+	public String deleteUser(Integer userId);
 
 }

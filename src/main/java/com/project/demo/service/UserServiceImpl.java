@@ -68,5 +68,15 @@ public class UserServiceImpl implements UserService {
 		
 		return "Success";
 	}
+	
+	@Transactional
+	@Override
+	public String deleteUser(Integer userId) {
+		
+	userRepository.deleteById(userId);
+	
+	return "Success";
+		
+	}
 
 }
