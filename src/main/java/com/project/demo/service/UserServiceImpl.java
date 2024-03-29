@@ -50,5 +50,23 @@ public class UserServiceImpl implements UserService {
 		
 		return "Sucess";
 	}
+	
+	@Transactional
+	@Override
+	public String updateUser(UserDTO userDTO) {
+		
+	Optional<User> optional	=userRepository.findById(userDTO.getUserId());
+	
+		User user=optional.get();
+		
+		user.setCity(userDTO.getCity());
+		user.setPassword(userDTO.getPassword());
+		user.setPhoneNo(userDTO.getPhoneNo());
+		user.setUserId(userDTO.getUserId());
+		user.setUserName(userDTO.getUserName());
+		
+		
+		return "Success";
+	}
 
 }

@@ -7,5 +7,7 @@ public interface UserService {
 	public UserDTO getUserDetails(Integer userId);
 	
 	public String addUser(UserDTO userDTO);
+	
+	public String updateUser(UserDTO userDTO);
 
 }
