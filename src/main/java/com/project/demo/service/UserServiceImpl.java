@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.demo.DTO.UserDTO;
 import com.project.demo.entity.User;
+import com.project.demo.exception.UserException;
 import com.project.demo.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -20,9 +21,13 @@ public class UserServiceImpl implements UserService {
 	UserRepository userRepository;
 
 	@Override
-	public UserDTO getUserDetails(Integer userId) {
+	public UserDTO getUserDetails(Integer userId)throws UserException {
 		
 	Optional<User> user	=userRepository.findById(userId);
+	if(user.isEmpty())
+	{
+		throw new UserException("User Not Found");
+	}
 	
 	User userEntity= user.get();
 	UserDTO userDTO=new UserDTO();
@@ -37,7 +42,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public String addUser(UserDTO userDTO) {
+	public String addUser(UserDTO userDTO)throws UserException {
 	
 		User user=new User();
 		user.setCity(userDTO.getCity());
@@ -53,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public String updateUser(UserDTO userDTO) {
+	public String updateUser(UserDTO userDTO) throws UserException{
 		
 	Optional<User> optional	=userRepository.findById(userDTO.getUserId());
 	
@@ -71,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Transactional
 	@Override
-	public String deleteUser(Integer userId) {
+	public String deleteUser(Integer userId)throws UserException {
 		
 	userRepository.deleteById(userId);
 	
@@ -80,7 +85,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUserDetailsByName(String userName) {
+	public UserDTO getUserDetailsByName(String userName)throws UserException {
 	
 		User user =userRepository.findByUserName(userName);
 		
@@ -95,7 +100,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO getUserDetailsPasswordAndCity(String city, String password) {
+	public UserDTO getUserDetailsPasswordAndCity(String city, String password)throws UserException {
 		
 		User user =userRepository.findByPasswordAndCity(city,password);
 		

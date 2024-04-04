@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.demo.DTO.UserDTO;
+import com.project.demo.exception.UserException;
 import com.project.demo.service.UserService;
 @RestController
 
@@ -24,7 +25,7 @@ public class UserController {
 	//@RequestMapping(value="{userId}",method= RequestMethod.GET)
 	
 	@GetMapping("{userId}")
-	public UserDTO getUserDetails(@PathVariable  Integer userId)
+	public UserDTO getUserDetails(@PathVariable  Integer userId)throws UserException
 	{
 		return userService.getUserDetails(userId);
 		
@@ -32,31 +33,31 @@ public class UserController {
 	
 	//@RequestMapping(value="new",method=RequestMethod.POST)
 	@PostMapping("new")
-	public String addUser(@RequestBody  UserDTO userDTO)
+	public String addUser(@RequestBody  UserDTO userDTO)throws UserException
 	{
 		return userService.addUser(userDTO);
 	}
 	@PutMapping("update")
-	public String updateUser(@RequestBody  UserDTO userDTO)
+	public String updateUser(@RequestBody  UserDTO userDTO)throws UserException
 	{
 		return userService.updateUser(userDTO);
 	}
 	
 	@DeleteMapping("delete/{userId}")
-	public String deleteUser(@PathVariable  Integer userId)
+	public String deleteUser(@PathVariable  Integer userId)throws UserException
 	{
 		return userService.deleteUser(userId);
 		
 	}
 	
 	@GetMapping("name/{userName}")
-	public UserDTO getUserDetailsByName(@PathVariable String userName)
+	public UserDTO getUserDetailsByName(@PathVariable String userName)throws UserException
 	{
 		return userService.getUserDetailsByName(userName);
 	}
 	
 	@GetMapping("{password}/{city}")
-	public UserDTO findByPasswordAndCity(@PathVariable String city,@PathVariable String password)
+	public UserDTO findByPasswordAndCity(@PathVariable String city,@PathVariable String password)throws UserException
 	{
 		return userService.getUserDetailsPasswordAndCity(city,password);
 	}
