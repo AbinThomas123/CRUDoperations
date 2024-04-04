@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	Optional<User> user	=userRepository.findById(userId);
 	if(user.isEmpty())
 	{
-		throw new UserException("User Not Found");
+		throw new UserException("SERVICE.USER.NOT.FOUND");
 	}
 	
 	User userEntity= user.get();
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
 		Optional<User> optional=userRepository.findById(userDTO.getUserId());
 		if(optional.isPresent())
 		{
-			throw new  UserException("User Already Found");
+			throw new  UserException("SERVICE.USER.ALREADY.EXISTS");
 		}
 	
 		User user=new User();
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
 		User user =userRepository.findByUserName(userName);
 		if(user==null)
 		{
-			throw new UserException("User Name Not Found");
+			throw new UserException("SERVICE.USER.NOT.FOUND");
 		}
 		
 		UserDTO userDTO=new UserDTO();
@@ -116,7 +116,7 @@ public class UserServiceImpl implements UserService {
 		
 		if(user==null)
 		{
-			throw new UserException("User Name Not Found");
+			throw new UserException("SERVICE.USER.NOT.FOUND");
 		}
 		
 		UserDTO userDTO=new UserDTO();
