@@ -10,5 +10,7 @@ public interface UserService {
 	
 	public String updateUser(UserDTO userDTO);
 	public String deleteUser(Integer userId);
+	
+	public UserDTO getUserDetailsByName(String userName);
 
 }
