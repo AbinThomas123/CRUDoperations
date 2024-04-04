@@ -1,6 +1,7 @@
 package com.project.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,8 @@ import com.project.demo.service.UserService;
 @RequestMapping("/user/")
 public class UserController {
 	
-	
+	@Autowired
+	Environment enviroment;
 	@Autowired
 	UserService userService;
 	
@@ -35,18 +37,21 @@ public class UserController {
 	@PostMapping("new")
 	public String addUser(@RequestBody  UserDTO userDTO)throws UserException
 	{
-		return userService.addUser(userDTO);
+		String userName= userService.addUser(userDTO);
+		return enviroment.getProperty("API.USER_SUCESSFULLY_ADDED")+" "+userName;
 	}
 	@PutMapping("update")
 	public String updateUser(@RequestBody  UserDTO userDTO)throws UserException
 	{
-		return userService.updateUser(userDTO);
+		String userName=userService.updateUser(userDTO);
+		return enviroment.getProperty("API.USER_SUCESSFULLY_UPDATED")+" "+userName;
 	}
 	
 	@DeleteMapping("delete/{userId}")
 	public String deleteUser(@PathVariable  Integer userId)throws UserException
 	{
-		return userService.deleteUser(userId);
+		String userName=userService.deleteUser(userId);
+		return enviroment.getProperty("API.USER_SUCESSFULLY_DELETED")+" "+userName;
 		
 	}
 	

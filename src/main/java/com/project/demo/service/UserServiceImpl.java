@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		
 		userRepository.save(user);
 		
-		return "Sucess";
+		return userDTO.getUserName();
 	}
 	
 	@Transactional
@@ -77,16 +77,22 @@ public class UserServiceImpl implements UserService {
 		user.setUserName(userDTO.getUserName());
 		
 		
-		return "Success";
+		return userDTO.getUserName();
 	}
 	
 	@Transactional
 	@Override
 	public String deleteUser(Integer userId)throws UserException {
 		
+	Optional<User> user	=userRepository.findById(userId);
+	if(user.isEmpty())
+	{
+		throw new UserException("SERVICE.USER.NOT.FOUND");
+	}
+		
 	userRepository.deleteById(userId);
 	
-	return "Success";
+	return user.get().getUserName();
 		
 	}
 
