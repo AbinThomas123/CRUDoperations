@@ -2,6 +2,8 @@ package com.project.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,18 +29,22 @@ public class UserController {
 	//@RequestMapping(value="{userId}",method= RequestMethod.GET)
 	
 	@GetMapping("{userId}")
-	public UserDTO getUserDetails(@PathVariable  Integer userId)throws UserException
+	//public UserDTO getUserDetails(@PathVariable  Integer userId)throws UserException
+	public ResponseEntity<UserDTO> getUserDetails(@PathVariable  Integer userId)throws UserException
 	{
-		return userService.getUserDetails(userId);
+		return new ResponseEntity<>(userService.getUserDetails(userId),HttpStatus.OK);
 		
 	}
 	
 	//@RequestMapping(value="new",method=RequestMethod.POST)
 	@PostMapping("new")
-	public String addUser(@RequestBody  UserDTO userDTO)throws UserException
+	//public String addUser(@RequestBody  UserDTO userDTO)throws UserException
+	public ResponseEntity<String>addUser(@RequestBody  UserDTO userDTO)throws UserException
 	{
 		String userName= userService.addUser(userDTO);
-		return enviroment.getProperty("API.USER_SUCESSFULLY_ADDED")+" "+userName;
+		//return enviroment.getProperty("API.USER_SUCESSFULLY_ADDED")+" "+userName;
+		String success=enviroment.getProperty("API.USER_SUCESSFULLY_ADDED")+" "+userName;
+		return new ResponseEntity<>(success,HttpStatus.CREATED);
 	}
 	@PutMapping("update")
 	public String updateUser(@RequestBody  UserDTO userDTO)throws UserException
