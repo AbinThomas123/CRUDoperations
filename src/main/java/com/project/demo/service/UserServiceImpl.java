@@ -43,6 +43,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	@Override
 	public String addUser(UserDTO userDTO)throws UserException {
+		
+		Optional<User> optional=userRepository.findById(userDTO.getUserId());
+		if(optional.isPresent())
+		{
+			throw new  UserException("User Already Found");
+		}
 	
 		User user=new User();
 		user.setCity(userDTO.getCity());
@@ -88,6 +94,10 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getUserDetailsByName(String userName)throws UserException {
 	
 		User user =userRepository.findByUserName(userName);
+		if(user==null)
+		{
+			throw new UserException("User Name Not Found");
+		}
 		
 		UserDTO userDTO=new UserDTO();
 		
@@ -103,6 +113,11 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getUserDetailsPasswordAndCity(String city, String password)throws UserException {
 		
 		User user =userRepository.findByPasswordAndCity(city,password);
+		
+		if(user==null)
+		{
+			throw new UserException("User Name Not Found");
+		}
 		
 		UserDTO userDTO=new UserDTO();
 		
