@@ -12,5 +12,7 @@ public interface UserService {
 	public String deleteUser(Integer userId);
 	
 	public UserDTO getUserDetailsByName(String userName);
+	
+	public UserDTO getUserDetailsPasswordAndCity(String city,String password);
 
 }

@@ -54,5 +54,11 @@ public class UserController {
 	{
 		return userService.getUserDetailsByName(userName);
 	}
+	
+	@GetMapping("{password}/{city}")
+	public UserDTO findByPasswordAndCity(@PathVariable String city,@PathVariable String password)
+	{
+		return userService.getUserDetailsPasswordAndCity(city,password);
+	}
 
 }

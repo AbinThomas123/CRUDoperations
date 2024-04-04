@@ -94,4 +94,19 @@ public class UserServiceImpl implements UserService {
 		return userDTO;
 	}
 
+	@Override
+	public UserDTO getUserDetailsPasswordAndCity(String city, String password) {
+		
+		User user =userRepository.findByPasswordAndCity(city,password);
+		
+		UserDTO userDTO=new UserDTO();
+		
+		userDTO.setCity(user.getCity());
+		userDTO.setPassword(user.getPassword());
+		userDTO.setPhoneNo(user.getPhoneNo());
+		userDTO.setUserName(user.getUserName());
+		userDTO.setUserId(user.getUserId());
+		return userDTO;
+	}
+
 }
